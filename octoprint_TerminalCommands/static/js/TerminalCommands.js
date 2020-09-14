@@ -75,6 +75,15 @@ $(function() {
             $(".termctrl").remove();
         }
 
+        // Terrible spin-loop sleep method
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+        
         function addButtonsToTermTab() {
             console.log("addButtonsToTermTab");
             console.log("len: %i", self.terminalCommands().length);
@@ -126,6 +135,7 @@ $(function() {
                     do {
                         console.log("send( " + cmds[i] + " )");
                         self.sendCommand(cmds[i]);
+                        sleep(200);
                         i++;
                         nCmds--;
                     } while(nCmds > 0);
